@@ -6,6 +6,7 @@ import { Container } from "@/components/container";
 import { Button } from "@/components/ui/button";
 import { Field, Input, Textarea, Select } from "@/components/ui/field";
 import { MultiImageUpload } from "@/components/image-upload";
+import { RequireAuth } from "@/components/require-auth";
 import {
   ListingType,
   BookCategory,
@@ -33,7 +34,7 @@ const BENEFITS = [
   },
 ];
 
-export default function SellPage() {
+function SellForm() {
   const [submitted, setSubmitted] = useState(false);
 
   return (
@@ -176,5 +177,13 @@ export default function SellPage() {
         </aside>
       </div>
     </Container>
+  );
+}
+
+export default function SellPage() {
+  return (
+    <RequireAuth>
+      <SellForm />
+    </RequireAuth>
   );
 }

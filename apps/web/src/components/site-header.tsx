@@ -33,6 +33,9 @@ export function SiteHeader() {
   const isActive = (href: string) =>
     pathname === href || pathname.startsWith(`${href}/`);
 
+  // Selling requires an account — send logged-out users to login first.
+  const sellHref = user ? "/sell" : "/login?next=/sell";
+
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-white/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
@@ -79,7 +82,7 @@ export function SiteHeader() {
               Sign in
             </ButtonLink>
           )}
-          <ButtonLink href="/sell" variant="accent" size="sm">
+          <ButtonLink href={sellHref} variant="accent" size="sm">
             <Plus className="size-4" />
             Sell a Book
           </ButtonLink>
@@ -122,7 +125,7 @@ export function SiteHeader() {
                   <User className="size-4" /> Sign in
                 </ButtonLink>
               )}
-              <ButtonLink href="/sell" onClick={() => setOpen(false)}>
+              <ButtonLink href={sellHref} onClick={() => setOpen(false)}>
                 <Plus className="size-4" /> Sell a Book
               </ButtonLink>
             </div>

@@ -6,6 +6,7 @@ import { Container } from "@/components/container";
 import { Button } from "@/components/ui/button";
 import { Field, Input, Textarea } from "@/components/ui/field";
 import { SingleImageUpload } from "@/components/image-upload";
+import { RequireAuth } from "@/components/require-auth";
 import { StoreCategory, STORE_CATEGORY_LABELS } from "@/lib/data";
 
 const BENEFITS = [
@@ -26,7 +27,7 @@ const BENEFITS = [
   },
 ];
 
-export default function RegisterStorePage() {
+function RegisterStoreForm() {
   const [submitted, setSubmitted] = useState(false);
   const [categories, setCategories] = useState<StoreCategory[]>([]);
 
@@ -165,5 +166,13 @@ export default function RegisterStorePage() {
         </aside>
       </div>
     </Container>
+  );
+}
+
+export default function RegisterStorePage() {
+  return (
+    <RequireAuth>
+      <RegisterStoreForm />
+    </RequireAuth>
   );
 }

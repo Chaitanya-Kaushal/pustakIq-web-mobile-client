@@ -23,11 +23,18 @@ export default function LoginPage() {
   const [mobile, setMobile] = useState("");
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState<"otp" | "verify" | "google" | null>(null);
+  // Where to land after login — honours ?next=… (e.g. when gated from "Sell a Book").
+  const [next, setNext] = useState("/account");
 
-  // Already signed in → go to account
   useEffect(() => {
-    if (ready && user) router.replace("/account");
-  }, [ready, user, router]);
+    const target = new URLSearchParams(window.location.search).get("next");
+    if (target && target.startsWith("/")) setNext(target);
+  }, []);
+
+  // Already signed in → skip the form
+  useEffect(() => {
+    if (ready && user) router.replace(next);
+  }, [ready, user, router, next]);
 
   const phoneValid = mobile.length === 10;
   const codeValid = code.length === 6;
@@ -44,13 +51,13 @@ export default function LoginPage() {
     if (!codeValid) return;
     setLoading("verify");
     await verifyOtp(`+91${mobile}`, code);
-    router.replace("/account");
+    router.replace(next);
   };
 
   const onGoogle = async () => {
     setLoading("google");
     await signInWithGoogle();
-    router.replace("/account");
+    router.replace(next);
   };
 
   return (

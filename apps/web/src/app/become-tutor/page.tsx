@@ -6,6 +6,7 @@ import { Container } from "@/components/container";
 import { Button } from "@/components/ui/button";
 import { Field, Input, Textarea, Select } from "@/components/ui/field";
 import { SingleImageUpload } from "@/components/image-upload";
+import { RequireAuth } from "@/components/require-auth";
 import { SUBJECTS, TeachingMode, TEACHING_MODE_LABELS } from "@/lib/data";
 
 const BENEFITS = [
@@ -26,7 +27,7 @@ const BENEFITS = [
   },
 ];
 
-export default function BecomeTutorPage() {
+function BecomeTutorForm() {
   const [submitted, setSubmitted] = useState(false);
   const [subjects, setSubjects] = useState<string[]>([]);
 
@@ -190,5 +191,13 @@ export default function BecomeTutorPage() {
         </aside>
       </div>
     </Container>
+  );
+}
+
+export default function BecomeTutorPage() {
+  return (
+    <RequireAuth>
+      <BecomeTutorForm />
+    </RequireAuth>
   );
 }
