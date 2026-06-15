@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { LucideIcon } from "lucide-react";
+import { type Tone, TONE_SOFT } from "@/lib/exams";
 
 export function CategoryCard({
   href,
@@ -12,21 +13,15 @@ export function CategoryCard({
   label: string;
   description: string;
   icon: LucideIcon;
-  tone: "primary" | "secondary" | "accent";
+  tone: Tone;
 }) {
-  const tones = {
-    primary: "bg-primary-soft text-primary",
-    secondary: "bg-secondary-soft text-secondary",
-    accent: "bg-accent-soft text-accent",
-  } as const;
-
   return (
     <Link
       href={href}
-      className="group flex flex-col gap-3 rounded-card border border-line bg-white p-5 transition-shadow hover:shadow-lg hover:shadow-ink/5"
+      className="group flex flex-col gap-3 rounded-card border border-line bg-white p-5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
     >
       <span
-        className={`inline-flex size-12 items-center justify-center rounded-xl ${tones[tone]}`}
+        className={`inline-flex size-12 items-center justify-center rounded-xl ${TONE_SOFT[tone]}`}
       >
         <Icon className="size-6" />
       </span>

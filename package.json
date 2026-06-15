@@ -19,9 +19,12 @@
     "build": "turbo run build"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "4.3.1",
+    "tailwindcss": "4.3.1",
     "turbo": "^2.3.3",
     "typescript": "^5.6.3"
   },
+  "comment": "tailwindcss is pinned to v4 at the root so the Next.js web app (Tailwind v4) resolves it correctly; the mobile app keeps its own nested Tailwind v3 (NativeWind) under apps/mobile.",
   "engines": {
     "node": ">=20"
   }

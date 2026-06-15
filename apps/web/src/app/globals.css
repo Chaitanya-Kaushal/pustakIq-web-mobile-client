@@ -13,13 +13,13 @@
   --color-primary-soft: #eff6ff;
   --color-secondary: #059669;
   --color-secondary-soft: #ecfdf5;
-  --color-accent: #ea580c;
+  --color-accent: #f97316;
   --color-accent-soft: #fff7ed;
   --color-whatsapp: #25d366;
 
   /* Surfaces */
   --color-surface: #ffffff;
-  --color-surface-muted: #f8fafc;
+  --color-surface-muted: #f7f8fc;
   --color-surface-soft: #f1f5f9;
 
   /* Text */
@@ -40,8 +40,8 @@
   --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
 
   /* Radii */
-  --radius-card: 1rem;
-  --radius-btn: 0.75rem;
+  --radius-card: 1.25rem;
+  --radius-btn: 0.875rem;
 
   /* Container */
   --breakpoint-3xl: 96rem;
@@ -50,6 +50,11 @@
 :root {
   --background: #ffffff;
   --foreground: #0f172a;
+
+  /* Soft shadows (referenced via shadow-[var(--shadow-card)]) */
+  --shadow-soft: 0 4px 20px -4px rgba(15, 23, 42, 0.08);
+  --shadow-card: 0 1px 3px rgba(15, 23, 42, 0.04), 0 8px 24px -8px rgba(15, 23, 42, 0.08);
+  --shadow-lift: 0 12px 32px -8px rgba(37, 99, 235, 0.18);
 }
 
 @layer base {
