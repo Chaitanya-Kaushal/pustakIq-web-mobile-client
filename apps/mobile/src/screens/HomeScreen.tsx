@@ -19,6 +19,7 @@ import {
   SearchBar,
   SectionHeader,
   StoreCard,
+  Text,
   TutorCard,
 } from '../components';
 import { AppNavProp } from '../navigation/types';
@@ -36,8 +37,18 @@ export function HomeScreen() {
         onPressNotifications={() => navigation.navigate('Notifications')}
       />
       <ScrollView
-        contentContainerClassName="p-4 gap-8 pb-8"
+        contentContainerClassName="p-4 gap-7 pb-8"
         showsVerticalScrollIndicator={false}>
+        {/* Friendly greeting */}
+        <View className="gap-1">
+          <Text variant="headlineLg">
+            Hi, {currentUser.name.split(' ')[0]} 👋
+          </Text>
+          <Text variant="bodyLg" color="onSurfaceVariant">
+            What would you like to learn today?
+          </Text>
+        </View>
+
         <SearchBar onPress={() => navigation.navigate('Search')} />
 
         {/* Explore categories */}

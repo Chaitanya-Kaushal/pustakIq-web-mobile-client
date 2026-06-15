@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Alert, KeyboardAvoidingView, Platform, Pressable, ScrollView, View } from 'react-native';
+import { Alert, KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import {
   BookCategory,
@@ -13,7 +13,7 @@ import {
 import {
   Button,
   DetailHeader,
-  Icon,
+  MultiImagePicker,
   Screen,
   SelectChips,
   Text,
@@ -33,6 +33,7 @@ export function CreateListingScreen({ navigation }: Props) {
   const [school, setSchool] = useState('');
   const [klass, setKlass] = useState('');
   const [description, setDescription] = useState('');
+  const [images, setImages] = useState<string[]>([]);
 
   const canSubmit = title.trim().length > 2 && price.trim().length > 0;
 
@@ -53,17 +54,8 @@ export function CreateListingScreen({ navigation }: Props) {
       />
       <KeyboardAvoidingView className="flex-1" behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <ScrollView contentContainerClassName="p-4 gap-6 pb-8" keyboardShouldPersistTaps="handled">
-          {/* Photos */}
-          <View className="flex-row gap-2">
-            {[0, 1, 2].map((i) => (
-              <Pressable
-                key={i}
-                className="h-[88px] w-[88px] items-center justify-center rounded-card border-[1.5px] border-dashed border-outline-variant bg-surface-container-low"
-                onPress={() => Alert.alert('Add photo', 'Image picker coming soon.')}>
-                <Icon name={i === 0 ? 'camera' : 'image'} size={24} color="onSurfaceVariant" />
-              </Pressable>
-            ))}
-          </View>
+          {/* Photos — Flipkart-style multi-image picker */}
+          <MultiImagePicker value={images} onChange={setImages} max={6} />
 
           <SelectChips
             label="Listing Type"

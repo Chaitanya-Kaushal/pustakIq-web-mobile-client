@@ -6,12 +6,21 @@ import {
   TEACHING_MODE_LABELS,
   TeachingMode,
 } from '@pustakiq/shared';
-import { Button, DetailHeader, Screen, SelectChips, Text, TextField } from '../components';
+import {
+  Button,
+  DetailHeader,
+  ImageUploader,
+  Screen,
+  SelectChips,
+  Text,
+  TextField,
+} from '../components';
 import { RootStackParamList } from '../navigation/types';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'BecomeTutor'>;
 
 export function BecomeTutorScreen({ navigation }: Props) {
+  const [photo, setPhoto] = useState<string | undefined>();
   const [name, setName] = useState('');
   const [qualification, setQualification] = useState('');
   const [experience, setExperience] = useState('');
@@ -42,6 +51,9 @@ export function BecomeTutorScreen({ navigation }: Props) {
       />
       <KeyboardAvoidingView className="flex-1" behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <ScrollView contentContainerClassName="p-4 gap-6 pb-8" keyboardShouldPersistTaps="handled">
+          <View className="items-center">
+            <ImageUploader variant="avatar" value={photo} onChange={setPhoto} size={104} label="Add your photo" />
+          </View>
           <TextField label="Full Name" value={name} onChangeText={setName} placeholder="Dr. Anjali Verma" />
           <TextField label="Qualification" value={qualification} onChangeText={setQualification} placeholder="M.Sc. Physics, IIT Delhi" />
           <View className="flex-row gap-2">

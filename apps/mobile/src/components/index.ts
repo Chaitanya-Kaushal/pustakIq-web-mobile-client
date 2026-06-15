@@ -24,5 +24,7 @@ export { StoreCard } from './StoreCard';
 export { ContactBar } from './ContactBar';
 export { CategoryTile, CATEGORY_COLORS } from './CategoryTile';
 export { EmptyState } from './EmptyState';
+export { ImageUploader } from './ImageUploader';
+export { MultiImagePicker } from './MultiImagePicker';
 export { AppHeader } from './AppHeader';
 export { DetailHeader } from './DetailHeader';

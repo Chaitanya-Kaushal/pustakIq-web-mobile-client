@@ -10,68 +10,68 @@
  * referenced in the DESIGN.md prose.
  */
 export const colors = {
-  // Surfaces
-  surface: '#faf8ff',
-  surfaceDim: '#d9d9e5',
-  surfaceBright: '#faf8ff',
+  // Surfaces — "Vibrant & Friendly" refresh (kept in sync with tailwind.config.js)
+  surface: '#ffffff',
+  surfaceDim: '#e2e8f0',
+  surfaceBright: '#ffffff',
   surfaceContainerLowest: '#ffffff',
-  surfaceContainerLow: '#f3f3fe',
-  surfaceContainer: '#ededf9',
-  surfaceContainerHigh: '#e7e7f3',
-  surfaceContainerHighest: '#e1e2ed',
-  surfaceVariant: '#e1e2ed',
+  surfaceContainerLow: '#f8fafc',
+  surfaceContainer: '#f1f5f9',
+  surfaceContainerHigh: '#eef2f7',
+  surfaceContainerHighest: '#e2e8f0',
+  surfaceVariant: '#eef2f7',
 
   // On-surface text
-  onSurface: '#191b23',
-  onSurfaceVariant: '#434655',
-  inverseSurface: '#2e3039',
-  inverseOnSurface: '#f0f0fb',
+  onSurface: '#0f172a',
+  onSurfaceVariant: '#64748b',
+  inverseSurface: '#1e293b',
+  inverseOnSurface: '#f8fafc',
 
   // Outlines / borders
-  outline: '#737686',
-  outlineVariant: '#c3c6d7',
+  outline: '#94a3b8',
+  outlineVariant: '#e5e9f0',
 
-  // Primary (brand blue)
-  surfaceTint: '#0053db',
-  primary: '#004ac6',
+  // Primary (bright friendly blue)
+  surfaceTint: '#2563eb',
+  primary: '#2563eb',
   onPrimary: '#ffffff',
   primaryContainer: '#2563eb',
-  onPrimaryContainer: '#eeefff',
-  inversePrimary: '#b4c5ff',
-  primaryFixed: '#dbe1ff',
-  primaryFixedDim: '#b4c5ff',
-  onPrimaryFixed: '#00174b',
-  onPrimaryFixedVariant: '#003ea8',
+  onPrimaryContainer: '#ffffff',
+  inversePrimary: '#93c5fd',
+  primaryFixed: '#dbeafe',
+  primaryFixedDim: '#93c5fd',
+  onPrimaryFixed: '#0a1f44',
+  onPrimaryFixedVariant: '#1d4ed8',
 
-  // Secondary (success green)
-  secondary: '#006c49',
+  // Secondary (emerald)
+  secondary: '#10b981',
   onSecondary: '#ffffff',
-  secondaryContainer: '#6cf8bb',
-  onSecondaryContainer: '#00714d',
-  secondaryFixed: '#6ffbbe',
-  secondaryFixedDim: '#4edea3',
-  onSecondaryFixed: '#002113',
-  onSecondaryFixedVariant: '#005236',
+  secondaryContainer: '#10b981',
+  onSecondaryContainer: '#047857',
+  secondaryFixed: '#a7f3d0',
+  secondaryFixedDim: '#6ee7b7',
+  onSecondaryFixed: '#022c22',
+  onSecondaryFixedVariant: '#047857',
 
-  // Tertiary (warm accent)
-  tertiary: '#943700',
+  // Tertiary (warm orange)
+  tertiary: '#f97316',
   onTertiary: '#ffffff',
-  tertiaryContainer: '#bc4800',
-  onTertiaryContainer: '#ffede6',
-  tertiaryFixed: '#ffdbcd',
-  tertiaryFixedDim: '#ffb596',
-  onTertiaryFixed: '#360f00',
-  onTertiaryFixedVariant: '#7d2d00',
+  tertiaryContainer: '#f97316',
+  onTertiaryContainer: '#ffffff',
+  tertiaryFixed: '#ffedd5',
+  tertiaryFixedDim: '#fdba74',
+  onTertiaryFixed: '#431407',
+  onTertiaryFixedVariant: '#c2410c',
 
   // Error
-  error: '#ba1a1a',
+  error: '#ef4444',
   onError: '#ffffff',
-  errorContainer: '#ffdad6',
-  onErrorContainer: '#93000a',
+  errorContainer: '#fee2e2',
+  onErrorContainer: '#b91c1c',
 
   // Background
-  background: '#faf8ff',
-  onBackground: '#191b23',
+  background: '#f6f7fb',
+  onBackground: '#0f172a',
 
   // Common
   white: '#ffffff',

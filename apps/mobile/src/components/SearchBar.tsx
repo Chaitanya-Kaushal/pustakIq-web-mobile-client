@@ -15,7 +15,7 @@ export interface SearchBarProps {
 }
 
 const BAR =
-  'flex-row items-center gap-3 rounded-btn border border-outline-variant bg-surface-container-lowest px-4 py-3 shadow-sm';
+  'flex-row items-center gap-3 rounded-full border border-outline-variant bg-surface-container-lowest px-5 py-3.5 shadow-sm shadow-primary/5';
 
 export function SearchBar({
   value,
@@ -28,7 +28,7 @@ export function SearchBar({
   if (onPress) {
     return (
       <Pressable onPress={onPress} className={`${BAR} ${className ?? ''}`}>
-        <Icon name="search" size={22} color="outline" />
+        <Icon name="search" size={22} color="primary" />
         <Text variant="bodyLg" color="onSurfaceVariant" className="flex-1">
           {placeholder}
         </Text>

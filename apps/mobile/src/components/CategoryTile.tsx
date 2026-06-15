@@ -1,6 +1,5 @@
 import React from 'react';
 import { Pressable, View } from 'react-native';
-import { colors } from '@pustakiq/theme';
 import { Text } from './Text';
 import { Icon, IconName } from './Icon';
 
@@ -14,13 +13,13 @@ export interface CategoryTileProps {
 
 export function CategoryTile({ label, icon, tint, background, onPress }: CategoryTileProps) {
   return (
-    <Pressable onPress={onPress} className="w-[72px] items-center gap-2">
+    <Pressable onPress={onPress} className="w-[76px] items-center gap-2 active:opacity-80">
       <View
-        className="h-16 w-16 items-center justify-center rounded-2xl"
+        className="h-[68px] w-[68px] items-center justify-center rounded-[22px]"
         style={{ backgroundColor: background }}>
-        <Icon name={icon} size={28} tint={tint} />
+        <Icon name={icon} size={30} tint={tint} />
       </View>
-      <Text variant="labelSm" align="center">
+      <Text variant="labelSm" weight="600" align="center">
         {label}
       </Text>
     </Pressable>
@@ -28,8 +27,8 @@ export function CategoryTile({ label, icon, tint, background, onPress }: Categor
 }
 
 export const CATEGORY_COLORS = {
-  schoolBooks: { tint: colors.primary, background: '#EAF1FF' },
-  examBooks: { tint: colors.secondary, background: '#E6F8F0' },
-  tutors: { tint: colors.tertiary, background: '#FFEDE6' },
-  stores: { tint: colors.onSurfaceVariant, background: colors.surfaceContainerHigh },
+  schoolBooks: { tint: '#2563EB', background: '#EFF6FF' },
+  examBooks: { tint: '#10B981', background: '#ECFDF5' },
+  tutors: { tint: '#F97316', background: '#FFF7ED' },
+  stores: { tint: '#8B5CF6', background: '#F5F3FF' },
 };

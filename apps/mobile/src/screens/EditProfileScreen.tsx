@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { Alert, KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { currentUser } from '@pustakiq/shared';
-import { Avatar, Button, DetailHeader, Screen, TextField } from '../components';
+import { Button, DetailHeader, ImageUploader, Screen, TextField } from '../components';
 import { RootStackParamList } from '../navigation/types';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'EditProfile'>;
 
 export function EditProfileScreen({ navigation }: Props) {
+  const [photo, setPhoto] = useState<string | undefined>(currentUser.profileImage);
   const [name, setName] = useState(currentUser.name);
   const [email, setEmail] = useState(currentUser.email ?? '');
   const [city, setCity] = useState('New Delhi');
@@ -23,9 +24,14 @@ export function EditProfileScreen({ navigation }: Props) {
       <DetailHeader title="Edit Profile" onBack={() => navigation.goBack()} />
       <KeyboardAvoidingView className="flex-1" behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <ScrollView contentContainerClassName="p-4 gap-6 pb-8" keyboardShouldPersistTaps="handled">
-          <View className="items-center gap-2">
-            <Avatar uri={currentUser.profileImage} name={name} size={88} />
-            <Button label="Change Photo" variant="secondary" fullWidth={false} onPress={() => Alert.alert('Change photo', 'Image picker coming soon.')} />
+          <View className="items-center">
+            <ImageUploader
+              variant="avatar"
+              value={photo}
+              onChange={setPhoto}
+              size={104}
+              label="Change Photo"
+            />
           </View>
 
           <TextField label="Full Name" value={name} onChangeText={setName} />

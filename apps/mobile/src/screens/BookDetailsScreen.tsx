@@ -1,8 +1,9 @@
 import React from 'react';
-import { Image, ScrollView, View } from 'react-native';
+import { Image, Pressable, ScrollView, View } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { colors } from '@pustakiq/theme';
 import {
+  discountPercent,
   formatDate,
   formatPrice,
   getClassName,
@@ -19,6 +20,7 @@ import {
   DetailHeader,
   EmptyState,
   Icon,
+  IconName,
   RatingStars,
   Screen,
   Text,
@@ -27,6 +29,16 @@ import { RootStackParamList } from '../navigation/types';
 import { callPhone, openWhatsApp } from '../utils/contact';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'BookDetails'>;
+
+function CircleButton({ icon, onPress }: { icon: IconName; onPress: () => void }) {
+  return (
+    <Pressable
+      onPress={onPress}
+      className="h-10 w-10 items-center justify-center rounded-full bg-white/95 shadow-sm shadow-black/10 active:opacity-80">
+      <Icon name={icon} size={20} color="onSurface" />
+    </Pressable>
+  );
+}
 
 export function BookDetailsScreen({ navigation, route }: Props) {
   const book = getBookById(route.params.bookId);
@@ -44,118 +56,154 @@ export function BookDetailsScreen({ navigation, route }: Props) {
   const categoryLabel = book.examBook
     ? `${book.examBook.examType} • Exam Book`
     : `${getClassName(book.schoolBook?.classId)} • School Book`;
+  const discount = discountPercent(book.price, book.originalPrice);
   const message = `Hi, is "${book.title}" still available on PustakIQ?`;
 
   return (
     <Screen edges={['top']}>
-      <DetailHeader
-        onBack={() => navigation.goBack()}
-        actions={[
-          { icon: 'bookmark', onPress: () => {} },
-          { icon: 'share', onPress: () => {} },
-        ]}
-      />
-      <ScrollView contentContainerClassName="p-4 gap-4 pb-8" showsVerticalScrollIndicator={false}>
-        <View className="h-60 rounded-card bg-surface-container-high items-center justify-center overflow-hidden">
-          <Image source={{ uri: book.images[0]?.imageUrl }} className="w-3/5 h-[90%]" resizeMode="contain" />
-        </View>
-
-        {/* Title card */}
-        <Card className="gap-2">
-          <View className="flex-row justify-between">
-            <Badge label={categoryLabel} tone="primary" />
-            <ConditionBadge condition={book.condition} />
-          </View>
-          <Text variant="headlineLg">{book.title}</Text>
-          {school ? (
-            <Text variant="bodyLg" color="onSurfaceVariant">
-              {school.name}
-            </Text>
-          ) : null}
-
-          <View className="flex-row justify-between items-end mt-3">
-            <View>
-              <Text variant="labelSm" color="onSurfaceVariant">
-                PRICE
-              </Text>
-              <View className="flex-row items-baseline gap-2">
-                <Text variant="headlineLg" color="primary">
-                  {formatPrice(book.price)}
+      <View className="flex-1">
+        <ScrollView contentContainerClassName="pb-8" showsVerticalScrollIndicator={false}>
+          {/* Hero */}
+          <View className="h-80 items-center justify-center bg-primary-soft">
+            <Image
+              source={{ uri: book.images[0]?.imageUrl }}
+              className="h-60 w-44 rounded-xl"
+              resizeMode="contain"
+            />
+            {discount ? (
+              <View className="absolute right-4 top-4 rounded-full bg-tertiary px-3 py-1.5">
+                <Text variant="labelSm" style={{ color: '#fff' }}>
+                  {discount}% OFF
                 </Text>
-                {book.originalPrice ? (
-                  <Text variant="bodyMd" color="onSurfaceVariant" className="line-through">
-                    {formatPrice(book.originalPrice)}
-                  </Text>
-                ) : null}
               </View>
+            ) : null}
+          </View>
+
+          {/* Content sheet pulled up over the hero */}
+          <View className="-mt-7 gap-4 rounded-t-[28px] bg-background p-4">
+            <View className="flex-row justify-between">
+              <Badge label={categoryLabel} tone="primary" />
+              <ConditionBadge condition={book.condition} />
             </View>
-            <View className="items-end gap-0.5">
-              <Text variant="labelSm" color="onSurfaceVariant">
-                POSTED ON
+
+            <Text variant="headlineLg">{book.title}</Text>
+            {school ? (
+              <Text variant="bodyLg" color="onSurfaceVariant" className="-mt-2">
+                {school.name}
               </Text>
-              <Text variant="bodyMd">{formatDate(book.createdAt)}</Text>
-            </View>
-          </View>
-        </Card>
+            ) : null}
 
-        {/* Seller card */}
-        <Card className="flex-row items-center gap-3">
-          <Avatar uri={book.seller.avatar} name={book.seller.name} size={48} />
-          <View className="flex-1">
-            <View className="flex-row items-center gap-1">
-              <Text variant="bodyMd" weight="700">
-                {book.seller.name}
+            {/* Price card */}
+            <Card className="flex-row items-end justify-between">
+              <View>
+                <Text variant="labelSm" color="onSurfaceVariant">
+                  PRICE
+                </Text>
+                <View className="flex-row items-baseline gap-2">
+                  <Text variant="headlineLg" color="primary">
+                    {formatPrice(book.price)}
+                  </Text>
+                  {book.originalPrice ? (
+                    <Text variant="bodyMd" color="onSurfaceVariant" className="line-through">
+                      {formatPrice(book.originalPrice)}
+                    </Text>
+                  ) : null}
+                </View>
+              </View>
+              <View className="items-end gap-0.5">
+                <Text variant="labelSm" color="onSurfaceVariant">
+                  POSTED
+                </Text>
+                <Text variant="bodyMd">{formatDate(book.createdAt)}</Text>
+              </View>
+            </Card>
+
+            {/* Seller card */}
+            <Card className="flex-row items-center gap-3">
+              <Avatar uri={book.seller.avatar} name={book.seller.name} size={48} />
+              <View className="flex-1">
+                <View className="flex-row items-center gap-1">
+                  <Text variant="bodyMd" weight="700">
+                    {book.seller.name}
+                  </Text>
+                  {book.seller.isTrusted ? <Icon name="verified" size={16} color="primary" /> : null}
+                </View>
+                <RatingStars rating={book.seller.rating} reviewCount={book.seller.reviewCount} />
+              </View>
+              <Button label="View Profile" variant="secondary" fullWidth={false} onPress={() => {}} />
+            </Card>
+
+            {/* Specs */}
+            <View className="flex-row gap-3">
+              <Card className="flex-1 items-center gap-1">
+                <View className="h-10 w-10 items-center justify-center rounded-full bg-primary-soft">
+                  <Icon name="menu_book" size={20} color="primary" />
+                </View>
+                <Text variant="bodyMd" weight="700">
+                  {book.pageCount ?? '—'}
+                </Text>
+                <Text variant="labelMd" color="onSurfaceVariant">
+                  Pages
+                </Text>
+              </Card>
+              <Card className="flex-1 items-center gap-1">
+                <View className="h-10 w-10 items-center justify-center rounded-full bg-secondary-soft">
+                  <Icon name="info" size={20} color="secondary" />
+                </View>
+                <Text variant="bodyMd" weight="700">
+                  {book.language ?? 'English'}
+                </Text>
+                <Text variant="labelMd" color="onSurfaceVariant">
+                  Language
+                </Text>
+              </Card>
+              <Card className="flex-1 items-center gap-1">
+                <View className="h-10 w-10 items-center justify-center rounded-full bg-accent-soft">
+                  <Icon name="verified" size={20} color="tertiary" />
+                </View>
+                <Text variant="bodyMd" weight="700">
+                  {book.condition === 'NEW' ? 'New' : 'Used'}
+                </Text>
+                <Text variant="labelMd" color="onSurfaceVariant">
+                  Condition
+                </Text>
+              </Card>
+            </View>
+
+            {/* Description */}
+            <View className="gap-2">
+              <Text variant="headlineSm">Description</Text>
+              <Text variant="bodyMd" color="onSurfaceVariant" className="leading-[22px]">
+                {book.description}
               </Text>
-              {book.seller.isTrusted ? <Icon name="verified" size={16} color="primary" /> : null}
             </View>
-            <RatingStars rating={book.seller.rating} reviewCount={book.seller.reviewCount} />
+
+            {/* Safety tip */}
+            <Card
+              className="flex-row gap-3 border-tertiary-fixed-dim"
+              style={{ backgroundColor: '#fff7ed' }}>
+              <Icon name="info" size={20} tint={colors.tertiary} />
+              <View className="flex-1">
+                <Text variant="bodyMd" weight="700" style={{ color: colors.tertiary }}>
+                  Safety Tip
+                </Text>
+                <Text variant="labelMd" color="onSurfaceVariant">
+                  Always meet the seller in a public place and inspect the book before making payment.
+                </Text>
+              </View>
+            </Card>
           </View>
-          <Button label="View Profile" variant="secondary" fullWidth={false} onPress={() => {}} />
-        </Card>
+        </ScrollView>
 
-        {/* Description */}
-        <View className="gap-2">
-          <Text variant="headlineSm">Description</Text>
-          <Text variant="bodyMd" color="onSurfaceVariant" className="leading-[22px]">
-            {book.description}
-          </Text>
-        </View>
-
-        {/* Specs */}
-        <View className="flex-row gap-3">
-          <Card className="flex-1 gap-1">
-            <Icon name="menu_book" size={22} color="primary" />
-            <Text variant="bodyMd" weight="700">
-              {book.pageCount ?? '—'} Pages
-            </Text>
-            <Text variant="labelMd" color="onSurfaceVariant">
-              Pages
-            </Text>
-          </Card>
-          <Card className="flex-1 gap-1">
-            <Icon name="info" size={22} color="primary" />
-            <Text variant="bodyMd" weight="700">
-              {book.language ?? 'English'}
-            </Text>
-            <Text variant="labelMd" color="onSurfaceVariant">
-              Language
-            </Text>
-          </Card>
-        </View>
-
-        {/* Safety tip */}
-        <Card className="flex-row gap-3 border-tertiary-fixed-dim" style={{ backgroundColor: '#bc480014' }}>
-          <Icon name="info" size={20} tint={colors.tertiary} />
-          <View className="flex-1">
-            <Text variant="bodyMd" weight="700" style={{ color: colors.tertiary }}>
-              Safety Tip
-            </Text>
-            <Text variant="labelMd" color="onSurfaceVariant">
-              Always meet the seller in public places and inspect the book before making payment.
-            </Text>
+        {/* Floating header buttons over the hero */}
+        <View className="absolute left-3 right-3 top-1 flex-row justify-between">
+          <CircleButton icon="arrow_back" onPress={() => navigation.goBack()} />
+          <View className="flex-row gap-2">
+            <CircleButton icon="bookmark" onPress={() => {}} />
+            <CircleButton icon="share" onPress={() => {}} />
           </View>
-        </Card>
-      </ScrollView>
+        </View>
+      </View>
 
       <ContactBar
         callLabel="Call Seller"

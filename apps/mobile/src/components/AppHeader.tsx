@@ -39,12 +39,12 @@ export function AppHeader({
       </Text>
 
       <Pressable
-        className="h-10 w-10 items-center justify-center"
+        className="h-10 w-10 items-center justify-center rounded-full bg-primary-soft active:opacity-80"
         onPress={onPressNotifications}
         hitSlop={8}>
-        <Icon name="notifications" size={24} color="primary" />
+        <Icon name="notifications" size={22} color="primary" />
         {unreadCount > 0 ? (
-          <View className="absolute right-2 top-2 h-2 w-2 rounded-full bg-error" />
+          <View className="absolute right-1.5 top-1.5 h-2.5 w-2.5 rounded-full border border-surface bg-error" />
         ) : null}
       </Pressable>
     </View>

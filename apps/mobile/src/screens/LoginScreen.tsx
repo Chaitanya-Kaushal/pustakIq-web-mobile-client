@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -6,13 +6,20 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import { useState } from 'react';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { colors, typography } from '@pustakiq/theme';
-import { Button, Card, Icon, Screen, Text } from '../components';
+import { Button, Icon, IconName, Screen, Text } from '../components';
 import { useAuth } from '../auth/AuthContext';
 import { AuthStackParamList } from '../navigation/types';
 
 type Props = NativeStackScreenProps<AuthStackParamList, 'Login'>;
+
+const FEATURES: { icon: IconName; label: string; tint: string; bg: string }[] = [
+  { icon: 'menu_book', label: 'Books', tint: '#2563EB', bg: '#EFF6FF' },
+  { icon: 'school', label: 'Tutors', tint: '#10B981', bg: '#ECFDF5' },
+  { icon: 'storefront', label: 'Stores', tint: '#F97316', bg: '#FFF7ED' },
+];
 
 export function LoginScreen({ navigation }: Props) {
   const { requestOtp, signInWithGoogle } = useAuth();
@@ -33,7 +40,6 @@ export function LoginScreen({ navigation }: Props) {
   const onGoogle = async () => {
     setLoading('google');
     await signInWithGoogle();
-    // On success the root navigator swaps to the signed-in stack automatically.
   };
 
   return (
@@ -42,30 +48,47 @@ export function LoginScreen({ navigation }: Props) {
         className="flex-1"
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <ScrollView
-          contentContainerClassName="p-6 gap-6 grow justify-center"
-          keyboardShouldPersistTaps="handled">
-          <View className="items-center gap-2">
-            <View className="w-14 h-14 rounded-card bg-primary-container items-center justify-center">
-              <Icon name="school_filled" size={32} tint={colors.onPrimary} />
+          contentContainerClassName="px-6 pb-8 grow justify-center"
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}>
+          {/* Hero */}
+          <View className="items-center gap-3 pb-7">
+            <View className="h-20 w-20 items-center justify-center rounded-[26px] bg-primary shadow-lg shadow-primary/30">
+              <Icon name="school_filled" size={42} tint="#ffffff" />
             </View>
-            <Text variant="bodyLg" weight="700" color="primary">
-              PustakIQ
+            <Text variant="headlineLg" align="center">
+              Welcome to PustakIQ 👋
+            </Text>
+            <Text variant="bodyLg" color="onSurfaceVariant" align="center">
+              India&apos;s Education Community Platform
             </Text>
           </View>
 
-          <View className="gap-1">
-            <Text variant="headlineLg">Welcome to PustakIQ</Text>
-            <Text variant="bodyLg" color="onSurfaceVariant">
-              India's Education Community Platform
-            </Text>
+          {/* Colorful feature chips */}
+          <View className="mb-7 flex-row justify-center gap-3">
+            {FEATURES.map((f) => (
+              <View
+                key={f.label}
+                className="flex-1 items-center gap-2 rounded-card border border-outline-variant bg-surface-container-lowest py-4 shadow-sm shadow-black/5">
+                <View
+                  className="h-11 w-11 items-center justify-center rounded-2xl"
+                  style={{ backgroundColor: f.bg }}>
+                  <Icon name={f.icon} size={22} tint={f.tint} />
+                </View>
+                <Text variant="labelMd" weight="600">
+                  {f.label}
+                </Text>
+              </View>
+            ))}
           </View>
 
+          {/* Mobile number */}
           <View className="gap-2">
             <Text variant="labelSm" color="onSurfaceVariant" className="tracking-[1px]">
               MOBILE NUMBER
             </Text>
             <View className="flex-row gap-3">
-              <View className="px-4 h-[52px] rounded-btn border border-outline-variant bg-surface-container-lowest items-center justify-center">
+              <View className="h-[54px] items-center justify-center rounded-btn border border-outline-variant bg-surface-container-lowest px-4">
                 <Text variant="bodyLg" weight="600">
                   +91
                 </Text>
@@ -76,7 +99,7 @@ export function LoginScreen({ navigation }: Props) {
                 placeholder="98765 43210"
                 placeholderTextColor={colors.onSurfaceVariant}
                 keyboardType="number-pad"
-                className="flex-1 h-[52px] rounded-btn border border-outline-variant bg-surface-container-lowest px-4"
+                className="h-[54px] flex-1 rounded-btn border border-outline-variant bg-surface-container-lowest px-4"
                 style={{ ...typography.bodyLg, color: colors.onSurface }}
                 maxLength={10}
               />
@@ -89,14 +112,15 @@ export function LoginScreen({ navigation }: Props) {
             onPress={onContinue}
             disabled={!valid}
             loading={loading === 'otp'}
+            className="mt-5"
           />
 
-          <View className="flex-row items-center gap-3">
-            <View className="flex-1 h-px bg-outline-variant" />
+          <View className="my-5 flex-row items-center gap-3">
+            <View className="h-px flex-1 bg-outline-variant" />
             <Text variant="labelMd" color="onSurfaceVariant">
               OR
             </Text>
-            <View className="flex-1 h-px bg-outline-variant" />
+            <View className="h-px flex-1 bg-outline-variant" />
           </View>
 
           <Button
@@ -105,26 +129,11 @@ export function LoginScreen({ navigation }: Props) {
             variant="ghost"
             onPress={onGoogle}
             loading={loading === 'google'}
-            className="bg-surface-container-lowest border border-outline-variant"
+            className="border border-outline-variant bg-surface-container-lowest"
           />
 
-          <View className="flex-row gap-3">
-            <Card className="flex-1 items-center gap-2 bg-surface-container-low">
-              <Icon name="menu_book" size={22} color="primary" />
-              <Text variant="bodyMd" color="onSurfaceVariant">
-                Access Books
-              </Text>
-            </Card>
-            <Card className="flex-1 items-center gap-2 bg-surface-container-low">
-              <Icon name="school" size={22} color="secondary" />
-              <Text variant="bodyMd" color="onSurfaceVariant">
-                Expert Tutors
-              </Text>
-            </Card>
-          </View>
-
-          <Text variant="labelMd" color="onSurfaceVariant" align="center" className="mt-3">
-            By continuing, you agree to PustakIQ's Terms of Service and Privacy Policy.
+          <Text variant="labelMd" color="onSurfaceVariant" align="center" className="mt-6">
+            By continuing, you agree to PustakIQ&apos;s Terms of Service and Privacy Policy.
           </Text>
         </ScrollView>
       </KeyboardAvoidingView>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, View } from 'react-native';
+import { Pressable, ScrollView, View } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { getTutorById, TEACHING_MODE_LABELS } from '@pustakiq/shared';
 import {
@@ -10,6 +10,7 @@ import {
   DetailHeader,
   EmptyState,
   Icon,
+  IconName,
   RatingStars,
   Screen,
   Text,
@@ -32,48 +33,63 @@ export function TutorDetailsScreen({ navigation, route }: Props) {
   }
 
   return (
-    <Screen>
-      <DetailHeader onBack={() => navigation.goBack()} title="Tutor Profile" />
-      <ScrollView contentContainerClassName="p-4 gap-6 pb-8" showsVerticalScrollIndicator={false}>
-        <Card className="items-center gap-2">
-          <Avatar uri={tutor.photo} name={tutor.name} size={88} />
-          <Text variant="headlineMd" align="center">
-            {tutor.name}
-          </Text>
-          <Text variant="bodyMd" color="onSurfaceVariant" align="center">
-            {tutor.qualification}
-          </Text>
-          <RatingStars rating={tutor.rating} reviewCount={tutor.reviewCount} />
-        </Card>
+    <Screen edges={['top']}>
+      <View className="flex-1">
+        <ScrollView contentContainerClassName="pb-8" showsVerticalScrollIndicator={false}>
+          {/* Hero */}
+          <View className="items-center gap-2 bg-primary-soft px-6 pb-12 pt-12">
+            <View className="rounded-full border-4 border-white shadow-md shadow-black/10">
+              <Avatar uri={tutor.photo} name={tutor.name} size={104} />
+            </View>
+            <Text variant="headlineMd" align="center" className="mt-1">
+              {tutor.name}
+            </Text>
+            <Text variant="bodyMd" color="onSurfaceVariant" align="center">
+              {tutor.qualification}
+            </Text>
+            <RatingStars rating={tutor.rating} reviewCount={tutor.reviewCount} />
+          </View>
 
-        <View className="flex-row gap-3">
-          <Stat icon="info" value={`${tutor.experienceYears} yrs`} label="Experience" />
-          <Stat icon="school" value={TEACHING_MODE_LABELS[tutor.mode]} label="Mode" />
-          <Stat icon="star" value={tutor.rating.toFixed(1)} label="Rating" />
+          {/* Content sheet */}
+          <View className="-mt-7 gap-6 rounded-t-[28px] bg-background p-4">
+            <View className="flex-row gap-3">
+              <Stat icon="info" value={`${tutor.experienceYears} yrs`} label="Experience" bgClass="bg-primary-soft" color="primary" />
+              <Stat icon="school" value={TEACHING_MODE_LABELS[tutor.mode]} label="Mode" bgClass="bg-secondary-soft" color="secondary" />
+              <Stat icon="star" value={tutor.rating.toFixed(1)} label="Rating" bgClass="bg-accent-soft" color="tertiary" />
+            </View>
+
+            <Section title="Subjects">
+              <View className="flex-row flex-wrap gap-2">
+                {tutor.subjects.map((s) => (
+                  <Badge key={s} label={s} tone="primary" />
+                ))}
+              </View>
+            </Section>
+
+            <Section title="Classes">
+              <View className="flex-row flex-wrap gap-2">
+                {tutor.classes.map((c) => (
+                  <Badge key={c} label={c} tone="success" />
+                ))}
+              </View>
+            </Section>
+
+            <Section title="About">
+              <Text variant="bodyMd" color="onSurfaceVariant" className="leading-[22px]">
+                {tutor.bio}
+              </Text>
+            </Section>
+          </View>
+        </ScrollView>
+
+        <View className="absolute left-3 top-1">
+          <Pressable
+            onPress={() => navigation.goBack()}
+            className="h-10 w-10 items-center justify-center rounded-full bg-white/95 shadow-sm shadow-black/10 active:opacity-80">
+            <Icon name="arrow_back" size={20} color="onSurface" />
+          </Pressable>
         </View>
-
-        <Section title="Subjects">
-          <View className="flex-row flex-wrap gap-2">
-            {tutor.subjects.map((s) => (
-              <Badge key={s} label={s} tone="primary" />
-            ))}
-          </View>
-        </Section>
-
-        <Section title="Classes">
-          <View className="flex-row flex-wrap gap-2">
-            {tutor.classes.map((c) => (
-              <Badge key={c} label={c} tone="success" />
-            ))}
-          </View>
-        </Section>
-
-        <Section title="About">
-          <Text variant="bodyMd" color="onSurfaceVariant" className="leading-[22px]">
-            {tutor.bio}
-          </Text>
-        </Section>
-      </ScrollView>
+      </View>
 
       <ContactBar
         callLabel="Call Tutor"
@@ -89,10 +105,24 @@ export function TutorDetailsScreen({ navigation, route }: Props) {
   );
 }
 
-function Stat({ icon, value, label }: { icon: any; value: string; label: string }) {
+function Stat({
+  icon,
+  value,
+  label,
+  bgClass,
+  color,
+}: {
+  icon: IconName;
+  value: string;
+  label: string;
+  bgClass: string;
+  color: 'primary' | 'secondary' | 'tertiary';
+}) {
   return (
     <Card className="flex-1 items-center gap-1">
-      <Icon name={icon} size={20} color="primary" />
+      <View className={`h-10 w-10 items-center justify-center rounded-full ${bgClass}`}>
+        <Icon name={icon} size={20} color={color} />
+      </View>
       <Text variant="bodyMd" weight="700" align="center" numberOfLines={1}>
         {value}
       </Text>

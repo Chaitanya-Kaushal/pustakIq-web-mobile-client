@@ -20,10 +20,10 @@ export interface ButtonProps {
 }
 
 const VARIANT_BG: Record<Variant, string> = {
-  primary: 'bg-primary-container',
-  secondary: 'border-[1.5px] border-primary bg-transparent',
-  ghost: 'bg-surface-container-high',
-  whatsapp: 'bg-whatsapp',
+  primary: 'bg-primary shadow-sm shadow-primary/30',
+  secondary: 'border-[1.5px] border-primary/30 bg-primary-soft',
+  ghost: 'bg-surface-container',
+  whatsapp: 'bg-whatsapp shadow-sm shadow-whatsapp/30',
 };
 
 const VARIANT_FG: Record<Variant, ColorToken> = {
@@ -50,7 +50,7 @@ export function Button({
       onPress={onPress}
       disabled={disabled || loading}
       className={[
-        'min-h-[48px] flex-row items-center justify-center rounded-btn px-6 active:opacity-90',
+        'min-h-[52px] flex-row items-center justify-center rounded-full px-6 active:opacity-90',
         VARIANT_BG[variant],
         fullWidth ? 'self-stretch' : '',
         disabled || loading ? 'opacity-50' : '',

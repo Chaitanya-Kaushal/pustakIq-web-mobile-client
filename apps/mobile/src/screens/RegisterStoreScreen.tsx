@@ -2,12 +2,21 @@ import React, { useState } from 'react';
 import { Alert, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { STORE_CATEGORY_LABELS, StoreCategory } from '@pustakiq/shared';
-import { Button, DetailHeader, Screen, SelectChips, Text, TextField } from '../components';
+import {
+  Button,
+  DetailHeader,
+  ImageUploader,
+  Screen,
+  SelectChips,
+  Text,
+  TextField,
+} from '../components';
 import { RootStackParamList } from '../navigation/types';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'RegisterStore'>;
 
 export function RegisterStoreScreen({ navigation }: Props) {
+  const [image, setImage] = useState<string | undefined>();
   const [storeName, setStoreName] = useState('');
   const [ownerName, setOwnerName] = useState('');
   const [phone, setPhone] = useState('');
@@ -38,6 +47,7 @@ export function RegisterStoreScreen({ navigation }: Props) {
       />
       <KeyboardAvoidingView className="flex-1" behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <ScrollView contentContainerClassName="p-4 gap-6 pb-8" keyboardShouldPersistTaps="handled">
+          <ImageUploader variant="banner" value={image} onChange={setImage} label="Add a store photo" />
           <TextField label="Store Name" value={storeName} onChangeText={setStoreName} placeholder="Universal Book Stall" />
           <TextField label="Owner Name" value={ownerName} onChangeText={setOwnerName} placeholder="Mohan Lal" />
           <TextField label="Phone" value={phone} onChangeText={(t) => setPhone(t.replace(/[^0-9]/g, '').slice(0, 10))} placeholder="98765 43210" keyboardType="number-pad" />

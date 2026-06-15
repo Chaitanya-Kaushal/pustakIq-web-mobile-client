@@ -8,7 +8,6 @@ import {
   View,
 } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { colors } from '@pustakiq/theme';
 import { Button, Icon, IconName, Screen, Text } from '../components';
 import { useAuth } from '../auth/AuthContext';
 import { AuthStackParamList } from '../navigation/types';
@@ -26,23 +25,23 @@ interface Slide {
 const SLIDES: Slide[] = [
   {
     icon: 'menu_book',
-    tint: colors.primary,
-    bg: '#EAF1FF',
-    title: 'Buy & Sell School Books',
+    tint: '#2563EB',
+    bg: '#EFF6FF',
+    title: 'Buy & Sell School Books 📚',
     body: 'Save money by buying and selling books within your local community.',
   },
   {
     icon: 'school',
-    tint: colors.secondary,
-    bg: '#E6F8F0',
-    title: 'Find Verified Tutors Nearby',
+    tint: '#10B981',
+    bg: '#ECFDF5',
+    title: 'Find Verified Tutors Nearby 🎓',
     body: 'Connect with experienced tutors for school subjects and exam preparation.',
   },
   {
     icon: 'storefront',
-    tint: colors.tertiary,
-    bg: '#FFEDE6',
-    title: 'Discover Trusted Book Stores',
+    tint: '#F97316',
+    bg: '#FFF7ED',
+    title: 'Discover Trusted Book Stores 🛍️',
     body: 'Locate stores near you for new & used books, exam guides and stationery.',
   },
 ];
@@ -90,12 +89,17 @@ export function OnboardingScreen({ navigation }: Props) {
         onMomentumScrollEnd={onScroll}
         renderItem={({ item }) => (
           <View className="items-center justify-center gap-4 px-8" style={{ width }}>
+            {/* Layered circular illustration */}
             <View
-              className="h-60 w-60 items-center justify-center rounded-2xl mb-6"
+              className="mb-8 h-64 w-64 items-center justify-center rounded-full"
               style={{ backgroundColor: item.bg }}>
-              <Icon name={item.icon} size={96} tint={item.tint} />
+              <View
+                className="h-44 w-44 items-center justify-center rounded-full"
+                style={{ backgroundColor: '#ffffff' }}>
+                <Icon name={item.icon} size={84} tint={item.tint} />
+              </View>
             </View>
-            <Text variant="headlineMd" align="center">
+            <Text variant="headlineLg" align="center">
               {item.title}
             </Text>
             <Text variant="bodyLg" color="onSurfaceVariant" align="center">

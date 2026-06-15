@@ -22,8 +22,9 @@ export function Card({
 }: CardProps) {
   const classes = [
     'rounded-card border border-outline-variant bg-surface-container-lowest',
+    'shadow-sm shadow-black/5',
     padded ? 'p-4' : '',
-    elevated ? 'shadow-sm' : '',
+    elevated ? 'shadow-md shadow-primary/10' : '',
     className ?? '',
   ].join(' ');
 
