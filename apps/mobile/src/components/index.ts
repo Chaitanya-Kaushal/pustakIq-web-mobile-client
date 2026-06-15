@@ -9,6 +9,8 @@ export type { ButtonProps } from './Button';
 export { GoogleLogo } from './GoogleLogo';
 export { Card } from './Card';
 export type { CardProps } from './Card';
+export { ConfirmDialog } from './ConfirmDialog';
+export type { ConfirmDialogProps } from './ConfirmDialog';
 export { Chip } from './Chip';
 export { Badge, ConditionBadge } from './Badge';
 export { SearchBar } from './SearchBar';

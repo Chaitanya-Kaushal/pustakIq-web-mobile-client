@@ -1,5 +1,5 @@
-import React from 'react';
-import { Alert, Pressable, ScrollView, View } from 'react-native';
+import React, { useState } from 'react';
+import { Pressable, ScrollView, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { currentUser } from '@pustakiq/shared';
 import {
@@ -7,6 +7,7 @@ import {
   Avatar,
   Button,
   Card,
+  ConfirmDialog,
   Icon,
   IconName,
   Screen,
@@ -25,6 +26,7 @@ interface Row {
 export function ProfileScreen() {
   const navigation = useNavigation<AppNavProp>();
   const { signOut } = useAuth();
+  const [logoutOpen, setLogoutOpen] = useState(false);
 
   const rows: Row[] = [
     {
@@ -65,13 +67,6 @@ export function ProfileScreen() {
     },
   ];
 
-  const confirmLogout = () => {
-    Alert.alert('Log out', 'Are you sure you want to log out?', [
-      { text: 'Cancel', style: 'cancel' },
-      { text: 'Log out', style: 'destructive', onPress: () => signOut() },
-    ]);
-  };
-
   return (
     <Screen>
       <AppHeader onPressNotifications={() => navigation.navigate('Notifications')} />
@@ -109,11 +104,31 @@ export function ProfileScreen() {
           ))}
         </View>
 
-        <Button label="Log Out" icon="logout" variant="ghost" onPress={confirmLogout} />
+        <Button
+          label="Log Out"
+          icon="logout"
+          variant="danger"
+          onPress={() => setLogoutOpen(true)}
+        />
         <Text variant="labelMd" color="onSurfaceVariant" align="center">
           PustakIQ v0.1.0
         </Text>
       </ScrollView>
+
+      <ConfirmDialog
+        visible={logoutOpen}
+        icon="logout"
+        title="Log out?"
+        message="You'll need to sign in again to access your listings and account."
+        confirmLabel="Log Out"
+        cancelLabel="Cancel"
+        danger
+        onCancel={() => setLogoutOpen(false)}
+        onConfirm={() => {
+          setLogoutOpen(false);
+          signOut();
+        }}
+      />
     </Screen>
   );
 }

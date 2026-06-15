@@ -1,11 +1,11 @@
 import React from 'react';
-import { ActivityIndicator, Pressable, View } from 'react-native';
+import { ActivityIndicator, Pressable, View, ViewStyle } from 'react-native';
 import { colors } from '@pustakiq/theme';
 import { Text } from './Text';
 import { Icon, IconName } from './Icon';
 import type { ColorToken } from '@pustakiq/theme';
 
-type Variant = 'primary' | 'secondary' | 'ghost' | 'whatsapp';
+type Variant = 'primary' | 'secondary' | 'ghost' | 'whatsapp' | 'danger';
 
 export interface ButtonProps {
   label: string;
@@ -26,6 +26,13 @@ const VARIANT_BG: Record<Variant, string> = {
   secondary: 'border-[1.5px] border-primary/30 bg-primary-soft',
   ghost: 'bg-surface-container',
   whatsapp: 'bg-whatsapp shadow-sm shadow-whatsapp/30',
+  danger: 'bg-error-container',
+};
+
+// Borders set via inline style — NativeWind silently drops arbitrary/opacity
+// border colors here, falling back to default black.
+const VARIANT_STYLE: Partial<Record<Variant, ViewStyle>> = {
+  danger: { borderWidth: 1, borderColor: '#F4AEAE' },
 };
 
 const VARIANT_FG: Record<Variant, ColorToken> = {
@@ -33,6 +40,7 @@ const VARIANT_FG: Record<Variant, ColorToken> = {
   secondary: 'primary',
   ghost: 'onSurface',
   whatsapp: 'white',
+  danger: 'error',
 };
 
 export function Button({
@@ -52,6 +60,7 @@ export function Button({
     <Pressable
       onPress={onPress}
       disabled={disabled || loading}
+      style={VARIANT_STYLE[variant]}
       className={[
         'min-h-[52px] flex-row items-center justify-center rounded-full px-6 active:opacity-90',
         VARIANT_BG[variant],
