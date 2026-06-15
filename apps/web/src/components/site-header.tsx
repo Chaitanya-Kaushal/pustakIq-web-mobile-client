@@ -79,7 +79,7 @@ export function SiteHeader() {
               Sign in
             </ButtonLink>
           )}
-          <ButtonLink href="/sell" size="sm">
+          <ButtonLink href="/sell" variant="accent" size="sm">
             <Plus className="size-4" />
             Sell a Book
           </ButtonLink>

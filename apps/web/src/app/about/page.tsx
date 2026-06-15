@@ -43,12 +43,15 @@ const AUDIENCE = [
 export default function AboutPage() {
   return (
     <>
-      <section className="border-b border-line bg-surface-muted">
-        <Container className="py-16 text-center">
-          <h1 className="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-ink sm:text-5xl">
-            India&apos;s education community platform
+      <section className="relative overflow-hidden bg-night">
+        <div className="pointer-events-none absolute -right-24 -top-24 size-80 rounded-full bg-accent/20 blur-3xl" />
+        <div className="pointer-events-none absolute -left-24 bottom-0 size-80 rounded-full bg-primary/25 blur-3xl" />
+        <Container className="relative py-20 text-center">
+          <h1 className="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
+            India&apos;s education marketplace, built on{" "}
+            <span className="text-accent">trust</span>
           </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-lg text-ink-soft">
+          <p className="mx-auto mt-5 max-w-2xl text-lg text-white/70">
             PustakIQ connects students, parents, tutors, book stores and schools —
             helping every learner access educational resources affordably and
             with trust.

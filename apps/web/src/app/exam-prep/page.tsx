@@ -17,18 +17,20 @@ export const metadata: Metadata = {
 export default function ExamPrepPage() {
   return (
     <>
-      <section className="border-b border-line bg-linear-to-b from-accent-soft/60 to-white">
-        <Container className="py-14 sm:py-20">
+      <section className="relative overflow-hidden bg-night">
+        <div className="pointer-events-none absolute -right-24 -top-24 size-80 rounded-full bg-accent/20 blur-3xl" />
+        <div className="pointer-events-none absolute -left-24 bottom-0 size-80 rounded-full bg-primary/25 blur-3xl" />
+        <Container className="relative py-16 sm:py-24">
           <div className="mx-auto max-w-2xl text-center">
-            <span className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-white px-3.5 py-1.5 text-sm font-semibold text-accent shadow-sm">
-              <Trophy className="size-4" />
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3.5 py-1.5 text-sm font-semibold text-white">
+              <Trophy className="size-4 text-accent" />
               Competitive Exam Prep
             </span>
-            <h1 className="mt-5 text-4xl font-extrabold tracking-tight text-ink sm:text-5xl">
+            <h1 className="mt-5 text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
               Crack your exam for{" "}
               <span className="text-accent">a fraction of the cost</span>
             </h1>
-            <p className="mt-4 text-lg text-ink-soft">
+            <p className="mt-4 text-lg text-white/70">
               Quality second-hand prep books for India&apos;s biggest competitive
               exams — from aspirants who&apos;ve already cleared the journey.
             </p>

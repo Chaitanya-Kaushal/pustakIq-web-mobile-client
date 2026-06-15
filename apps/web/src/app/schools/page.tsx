@@ -15,17 +15,18 @@ export const metadata: Metadata = {
 export default function SchoolsPage() {
   return (
     <>
-      <section className="border-b border-line bg-linear-to-b from-primary-soft/60 to-white">
-        <Container className="py-14">
+      <section className="relative overflow-hidden bg-night">
+        <div className="pointer-events-none absolute -left-24 -top-24 size-80 rounded-full bg-primary/25 blur-3xl" />
+        <Container className="relative py-16">
           <div className="mx-auto max-w-2xl text-center">
-            <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-white px-3.5 py-1.5 text-sm font-semibold text-primary shadow-sm">
-              <School className="size-4" />
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3.5 py-1.5 text-sm font-semibold text-white">
+              <School className="size-4 text-accent" />
               School-first discovery
             </span>
-            <h1 className="mt-5 text-4xl font-extrabold tracking-tight text-ink sm:text-5xl">
+            <h1 className="mt-5 text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
               Find your school&apos;s books
             </h1>
-            <p className="mt-4 text-lg text-ink-soft">
+            <p className="mt-4 text-lg text-white/70">
               Drill down by State → City → Area → School to see every book, tutor
               and store linked to your school.
             </p>
