@@ -4,15 +4,21 @@ import {
   ClipboardList,
   GraduationCap,
   Store,
-  Search,
   ShieldCheck,
-  Wallet,
-  Sparkles,
+  BadgePercent,
+  MessageCircle,
+  Layers,
   School,
   Trophy,
   ArrowRight,
   Star,
   BadgeCheck,
+  PencilRuler,
+  Library,
+  Smartphone,
+  Apple,
+  Play,
+  Sparkles,
 } from "lucide-react";
 import { Container } from "@/components/container";
 import { SearchBar } from "@/components/search-bar";
@@ -26,68 +32,62 @@ import { ButtonLink } from "@/components/ui/button";
 import { recentBooks, tutors, stores } from "@/lib/data";
 import { EXAM_META_LIST } from "@/lib/exams";
 
+const FEATURES = [
+  { icon: BadgePercent, title: "Up to 70% off MRP", text: "Gently-used books at unbeatable prices." },
+  { icon: ShieldCheck, title: "Verified sellers", text: "Rated students, parents & local stores." },
+  { icon: MessageCircle, title: "Call & WhatsApp directly", text: "No middlemen, no commissions." },
+  { icon: Layers, title: "School + 7 exams", text: "Nursery to Class 12 and every major exam." },
+];
+
 const STATS = [
+  { value: "50,000+", label: "Happy students" },
   { value: "20,000+", label: "Books listed" },
   { value: "2,000+", label: "Verified tutors" },
-  { value: "7", label: "Exam categories" },
   { value: "500+", label: "Schools covered" },
 ];
 
-const AUDIENCES = [
+const RESOURCES = [
   {
-    icon: School,
+    icon: BookOpen,
     tone: "bg-primary-soft text-primary",
-    title: "School Students & Parents",
-    text: "Find affordable textbooks by school, class and subject — Nursery to Class 12.",
+    title: "School Textbooks",
+    text: "Complete sets and individual books by school, class and subject.",
     href: "/books?category=SCHOOL_BOOK",
-    cta: "Browse school books",
   },
   {
     icon: Trophy,
     tone: "bg-accent-soft text-accent",
-    title: "Competitive Exam Aspirants",
-    text: "Prep books for JEE, NEET, UPSC, SSC, CAT, Banking & GATE — from those who cleared it.",
+    title: "Exam Prep Books",
+    text: "JEE, NEET, UPSC, SSC, CAT, Banking & GATE preparation books.",
     href: "/exam-prep",
-    cta: "Explore exam prep",
-  },
-];
-
-const STEPS = [
-  {
-    icon: Search,
-    title: "Search school or exam",
-    text: "Find resources by school & class, or by exam category like JEE, NEET and UPSC.",
   },
   {
-    icon: Wallet,
-    title: "Compare & save big",
-    text: "Used books at up to 70% off MRP. Compare prices, condition and sellers nearby.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Connect directly",
-    text: "Reach out on a call or WhatsApp — no middlemen, no commissions, no hidden fees.",
+    icon: PencilRuler,
+    tone: "bg-secondary-soft text-secondary",
+    title: "Guides & Stationery",
+    text: "Reference guides, previous-year papers and study material.",
+    href: "/stores",
   },
 ];
 
 const TESTIMONIALS = [
   {
     quote:
-      "Got my son's entire Class 9 set for a third of the price. The seller was right in our neighbourhood!",
+      "Got my son's entire Class 9 set for a third of the price — the seller was right in our neighbourhood!",
     name: "Meera Sharma",
-    role: "Parent, Delhi",
+    tag: "Parent · Delhi",
   },
   {
     quote:
       "Found used HC Verma and previous-year papers for JEE in great condition. Saved me thousands.",
     name: "Aditya Rao",
-    role: "JEE Aspirant, Pune",
+    tag: "JEE Aspirant · Pune",
   },
   {
     quote:
       "Listed my old UPSC books and they sold in two days. Helped another aspirant and recovered my money.",
     name: "Imran Khan",
-    role: "UPSC Aspirant, Bengaluru",
+    tag: "UPSC Aspirant · Bengaluru",
   },
 ];
 
@@ -100,7 +100,7 @@ export default function HomePage() {
           <div className="mx-auto max-w-3xl text-center">
             <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-white px-3.5 py-1.5 text-sm font-semibold text-primary shadow-sm">
               <Sparkles className="size-4" />
-              School books &amp; competitive exam prep — all in one place
+              India&apos;s most affordable education marketplace
             </span>
             <h1 className="mt-6 text-4xl font-extrabold leading-[1.1] tracking-tight text-ink sm:text-5xl md:text-6xl">
               Every book for your studies,{" "}
@@ -109,76 +109,58 @@ export default function HomePage() {
             <p className="mx-auto mt-5 max-w-2xl text-lg text-ink-soft">
               Buy &amp; sell affordable school textbooks and exam-prep books for
               JEE, NEET, UPSC &amp; more. Find verified tutors and trusted stores
-              near you — India&apos;s education community marketplace.
+              near you.
             </p>
             <div className="mx-auto mt-8 max-w-xl">
               <SearchBar />
             </div>
             <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-sm">
-              <span className="text-ink-soft">Trending:</span>
-              {["Class 10 Science", "HC Verma", "NEET Biology", "UPSC Spectrum"].map(
-                (t) => (
-                  <Link
-                    key={t}
-                    href={`/books?q=${encodeURIComponent(t)}`}
-                    className="rounded-full border border-line bg-white px-3 py-1 text-ink-soft transition-colors hover:border-primary hover:text-primary"
-                  >
-                    {t}
-                  </Link>
-                ),
-              )}
+              <span className="text-ink-soft">Popular exams:</span>
+              {EXAM_META_LIST.slice(0, 5).map((e) => (
+                <Link
+                  key={e.type}
+                  href={`/exam-books/${e.type.toLowerCase()}`}
+                  className="rounded-full border border-line bg-white px-3 py-1 font-semibold text-ink-soft transition-colors hover:border-primary hover:text-primary"
+                >
+                  {e.label}
+                </Link>
+              ))}
             </div>
             <div className="mt-6 flex items-center justify-center gap-2 text-sm text-ink-soft">
-              <span className="flex -space-x-1">
-                {[0, 1, 2].map((i) => (
+              <span className="flex">
+                {[0, 1, 2, 3, 4].map((i) => (
                   <Star key={i} className="size-4 fill-amber-400 text-amber-400" />
                 ))}
               </span>
-              Loved by 50,000+ students &amp; parents
+              Trusted by 50,000+ students &amp; parents across India
             </div>
           </div>
-
-          <dl className="mx-auto mt-14 grid max-w-3xl grid-cols-2 gap-6 sm:grid-cols-4">
-            {STATS.map((s) => (
-              <div key={s.label} className="text-center">
-                <dt className="text-2xl font-extrabold text-primary sm:text-3xl">
-                  {s.value}
-                </dt>
-                <dd className="mt-1 text-sm text-ink-soft">{s.label}</dd>
-              </div>
-            ))}
-          </dl>
         </Container>
       </section>
 
-      {/* Dual audience */}
-      <Container className="py-16">
-        <div className="grid gap-5 md:grid-cols-2">
-          {AUDIENCES.map((a) => (
-            <Link
-              key={a.title}
-              href={a.href}
-              className="group flex items-start gap-4 rounded-card border border-line bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
-            >
-              <span className={`inline-flex size-12 shrink-0 items-center justify-center rounded-xl ${a.tone}`}>
-                <a.icon className="size-6" />
+      {/* Features strip */}
+      <section className="border-b border-line bg-white">
+        <Container className="grid gap-6 py-8 sm:grid-cols-2 lg:grid-cols-4">
+          {FEATURES.map((f) => (
+            <div key={f.title} className="flex items-start gap-3">
+              <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary-soft text-primary">
+                <f.icon className="size-5" />
               </span>
               <div>
-                <h3 className="text-lg font-bold text-ink">{a.title}</h3>
-                <p className="mt-1 text-ink-soft">{a.text}</p>
-                <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-primary">
-                  {a.cta}
-                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-                </span>
+                <p className="font-bold text-ink">{f.title}</p>
+                <p className="text-sm text-ink-soft">{f.text}</p>
               </div>
-            </Link>
+            </div>
           ))}
-        </div>
-      </Container>
+        </Container>
+      </section>
 
-      {/* Categories */}
-      <Container className="pb-16">
-        <SectionHeading title="What are you looking for?" />
+      {/* Choose your goal */}
+      <Container className="py-16">
+        <SectionHeading
+          title="Choose your goal"
+          subtitle="Whether it's school or a competitive exam — start here."
+        />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <CategoryCard
             href="/books?category=SCHOOL_BOOK"
@@ -188,8 +170,8 @@ export default function HomePage() {
             tone="primary"
           />
           <CategoryCard
-            href="/books?category=EXAM_BOOK"
-            label="Exam Books"
+            href="/exam-prep"
+            label="Exam Prep"
             description="JEE, NEET, UPSC, SSC & more"
             icon={ClipboardList}
             tone="accent"
@@ -211,14 +193,14 @@ export default function HomePage() {
         </div>
       </Container>
 
-      {/* Browse by exam */}
+      {/* Exam categories (coaching-style) */}
       <section className="bg-surface-muted py-16">
         <Container>
           <SectionHeading
-            title="Prep books by exam"
-            subtitle="Curated second-hand books for every major competitive exam."
+            title="Preparing for 7 competitive exams"
+            subtitle="Curated second-hand prep books for every major exam."
             actionHref="/exam-prep"
-            actionLabel="All exams"
+            actionLabel="View all"
           />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {EXAM_META_LIST.map((exam) => (
@@ -242,8 +224,61 @@ export default function HomePage() {
         </div>
       </Container>
 
-      {/* Browse by school band */}
-      <Container className="pb-16">
+      {/* Resource types */}
+      <section className="bg-surface-muted py-16">
+        <Container>
+          <SectionHeading
+            title="Everything you need to study"
+            subtitle="From textbooks to exam guides and stationery."
+          />
+          <div className="grid gap-5 md:grid-cols-3">
+            {RESOURCES.map((r) => (
+              <Link
+                key={r.title}
+                href={r.href}
+                className="group flex flex-col gap-3 rounded-card border border-line bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
+              >
+                <span className={`inline-flex size-12 items-center justify-center rounded-xl ${r.tone}`}>
+                  <r.icon className="size-6" />
+                </span>
+                <h3 className="text-lg font-bold text-ink group-hover:text-primary">
+                  {r.title}
+                </h3>
+                <p className="text-ink-soft">{r.text}</p>
+                <span className="mt-auto inline-flex items-center gap-1 pt-1 text-sm font-semibold text-primary">
+                  Explore
+                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+                </span>
+              </Link>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* Trust metrics band */}
+      <section className="bg-primary py-14">
+        <Container>
+          <div className="mb-8 flex items-center justify-center gap-2 text-center">
+            <Library className="size-6 text-white/80" />
+            <h2 className="text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
+              Trusted by learners across India
+            </h2>
+          </div>
+          <dl className="grid grid-cols-2 gap-8 sm:grid-cols-4">
+            {STATS.map((s) => (
+              <div key={s.label} className="text-center">
+                <dt className="text-3xl font-extrabold text-white sm:text-4xl">
+                  {s.value}
+                </dt>
+                <dd className="mt-1 text-sm text-primary-soft">{s.label}</dd>
+              </div>
+            ))}
+          </dl>
+        </Container>
+      </section>
+
+      {/* Browse by school */}
+      <Container className="py-16">
         <div className="flex flex-col items-start gap-6 overflow-hidden rounded-card border border-line bg-linear-to-r from-primary-soft to-white p-8 sm:flex-row sm:items-center sm:justify-between">
           <div className="max-w-xl">
             <span className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-sm font-semibold text-primary shadow-sm">
@@ -294,64 +329,88 @@ export default function HomePage() {
         </div>
       </Container>
 
-      {/* How it works */}
+      {/* Testimonials */}
       <section className="bg-surface-muted py-16">
         <Container>
           <SectionHeading
-            title="How PustakIQ works"
-            subtitle="An education-first marketplace — not a generic classifieds site."
+            title="Students ❤️ PustakIQ"
+            subtitle="Real savings and success stories from across India."
           />
-          <div className="grid gap-6 md:grid-cols-3">
-            {STEPS.map((step, i) => (
-              <div
-                key={step.title}
-                className="rounded-card border border-line bg-white p-6 shadow-sm"
+          <div className="grid gap-5 md:grid-cols-3">
+            {TESTIMONIALS.map((t) => (
+              <figure
+                key={t.name}
+                className="flex flex-col rounded-card border border-line bg-white p-6 shadow-sm"
               >
-                <div className="flex items-center gap-3">
-                  <span className="inline-flex size-11 items-center justify-center rounded-xl bg-primary-soft text-primary">
-                    <step.icon className="size-5" />
-                  </span>
-                  <span className="text-sm font-bold text-ink-faint">
-                    0{i + 1}
-                  </span>
+                <div className="flex gap-1 text-amber-400">
+                  {[0, 1, 2, 3, 4].map((i) => (
+                    <Star key={i} className="size-4 fill-amber-400" />
+                  ))}
                 </div>
-                <h3 className="mt-4 text-lg font-semibold text-ink">
-                  {step.title}
-                </h3>
-                <p className="mt-1 text-ink-soft">{step.text}</p>
-              </div>
+                <blockquote className="mt-3 flex-1 text-ink">
+                  &ldquo;{t.quote}&rdquo;
+                </blockquote>
+                <figcaption className="mt-4 flex items-center gap-2">
+                  <BadgeCheck className="size-4 text-primary" />
+                  <span className="text-sm font-semibold text-ink">{t.name}</span>
+                  <span className="text-sm text-ink-faint">· {t.tag}</span>
+                </figcaption>
+              </figure>
             ))}
           </div>
         </Container>
       </section>
 
-      {/* Testimonials */}
+      {/* Get the app */}
       <Container className="py-16">
-        <SectionHeading
-          title="Loved across India"
-          subtitle="Students, parents and aspirants saving money every day."
-        />
-        <div className="grid gap-5 md:grid-cols-3">
-          {TESTIMONIALS.map((t) => (
-            <figure
-              key={t.name}
-              className="flex flex-col rounded-card border border-line bg-white p-6 shadow-sm"
-            >
-              <div className="flex gap-1 text-amber-400">
-                {[0, 1, 2, 3, 4].map((i) => (
-                  <Star key={i} className="size-4 fill-amber-400" />
-                ))}
-              </div>
-              <blockquote className="mt-3 flex-1 text-ink">
-                &ldquo;{t.quote}&rdquo;
-              </blockquote>
-              <figcaption className="mt-4 flex items-center gap-2">
-                <BadgeCheck className="size-4 text-primary" />
-                <span className="text-sm font-semibold text-ink">{t.name}</span>
-                <span className="text-sm text-ink-faint">· {t.role}</span>
-              </figcaption>
-            </figure>
-          ))}
+        <div className="grid items-center gap-8 overflow-hidden rounded-card border border-line bg-white p-8 shadow-sm sm:p-10 md:grid-cols-2">
+          <div>
+            <span className="inline-flex items-center gap-2 rounded-full bg-primary-soft px-3 py-1 text-sm font-semibold text-primary">
+              <Smartphone className="size-4" /> PustakIQ App
+            </span>
+            <h2 className="mt-3 text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
+              Take PustakIQ everywhere you study
+            </h2>
+            <p className="mt-2 text-ink-soft">
+              Browse books, chat with sellers and tutors, and list your own books
+              in seconds — right from your phone.
+            </p>
+            <ul className="mt-4 space-y-2 text-sm text-ink-soft">
+              {["Buy & sell on the go", "Instant Call & WhatsApp leads", "Notifications for your listings"].map(
+                (li) => (
+                  <li key={li} className="flex items-center gap-2">
+                    <BadgeCheck className="size-4 text-secondary" />
+                    {li}
+                  </li>
+                ),
+              )}
+            </ul>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <span className="inline-flex items-center gap-2 rounded-xl bg-ink px-4 py-2.5 text-sm font-semibold text-white">
+                <Play className="size-5" /> Google Play
+              </span>
+              <span className="inline-flex items-center gap-2 rounded-xl bg-ink px-4 py-2.5 text-sm font-semibold text-white">
+                <Apple className="size-5" /> App Store
+              </span>
+            </div>
+          </div>
+          <div className="flex justify-center">
+            <div className="grid w-full max-w-sm grid-cols-2 gap-4">
+              {recentBooks.slice(0, 4).map((b) => (
+                <div
+                  key={b.id}
+                  className="rounded-2xl border border-line bg-surface-muted p-3 text-center"
+                >
+                  <div className="mx-auto mb-2 inline-flex size-10 items-center justify-center rounded-xl bg-primary-soft text-primary">
+                    <BookOpen className="size-5" />
+                  </div>
+                  <p className="line-clamp-1 text-xs font-semibold text-ink">
+                    {b.title}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </Container>
 
