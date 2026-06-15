@@ -25,8 +25,8 @@ interface Slide {
 const SLIDES: Slide[] = [
   {
     icon: 'menu_book',
-    tint: '#2563EB',
-    bg: '#EFF6FF',
+    tint: '#0D9488',
+    bg: '#F0FDFA',
     title: 'Buy & Sell School Books 📚',
     body: 'Save money by buying and selling books within your local community.',
   },
@@ -39,8 +39,8 @@ const SLIDES: Slide[] = [
   },
   {
     icon: 'storefront',
-    tint: '#F97316',
-    bg: '#FFF7ED',
+    tint: '#F59E0B',
+    bg: '#FFFBEB',
     title: 'Discover Trusted Book Stores 🛍️',
     body: 'Locate stores near you for new & used books, exam guides and stationery.',
   },

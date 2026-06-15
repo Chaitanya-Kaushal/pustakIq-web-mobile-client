@@ -181,7 +181,7 @@ export function BookDetailsScreen({ navigation, route }: Props) {
             {/* Safety tip */}
             <Card
               className="flex-row gap-3 border-tertiary-fixed-dim"
-              style={{ backgroundColor: '#fff7ed' }}>
+              style={{ backgroundColor: '#FFFBEB' }}>
               <Icon name="info" size={20} tint={colors.tertiary} />
               <View className="flex-1">
                 <Text variant="bodyMd" weight="700" style={{ color: colors.tertiary }}>

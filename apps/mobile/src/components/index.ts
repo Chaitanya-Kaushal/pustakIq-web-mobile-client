@@ -6,6 +6,7 @@ export { Icon } from './Icon';
 export type { IconName, IconProps } from './Icon';
 export { Button } from './Button';
 export type { ButtonProps } from './Button';
+export { GoogleLogo } from './GoogleLogo';
 export { Card } from './Card';
 export type { CardProps } from './Card';
 export { Chip } from './Chip';

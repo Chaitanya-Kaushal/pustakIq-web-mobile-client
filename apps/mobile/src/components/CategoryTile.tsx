@@ -27,8 +27,8 @@ export function CategoryTile({ label, icon, tint, background, onPress }: Categor
 }
 
 export const CATEGORY_COLORS = {
-  schoolBooks: { tint: '#2563EB', background: '#EFF6FF' },
+  schoolBooks: { tint: '#0D9488', background: '#F0FDFA' },
   examBooks: { tint: '#10B981', background: '#ECFDF5' },
-  tutors: { tint: '#F97316', background: '#FFF7ED' },
+  tutors: { tint: '#F59E0B', background: '#FFFBEB' },
   stores: { tint: '#8B5CF6', background: '#F5F3FF' },
 };

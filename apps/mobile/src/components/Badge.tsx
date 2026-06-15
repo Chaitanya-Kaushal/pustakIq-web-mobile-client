@@ -5,7 +5,7 @@ import { BookCondition, CONDITION_LABELS } from '@pustakiq/shared';
 type Tone = 'primary' | 'success' | 'warning' | 'error' | 'neutral';
 
 const TONE_BG: Record<Tone, string> = {
-  primary: 'bg-[#EFF6FF]',
+  primary: 'bg-[#F0FDFA]',
   success: 'bg-[#ECFDF5]',
   warning: 'bg-[#FEF9C3]',
   error: 'bg-error-container',

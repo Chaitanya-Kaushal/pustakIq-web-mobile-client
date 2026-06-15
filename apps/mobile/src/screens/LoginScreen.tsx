@@ -9,16 +9,16 @@ import {
 import { useState } from 'react';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { colors, typography } from '@pustakiq/theme';
-import { Button, Icon, IconName, Screen, Text } from '../components';
+import { Button, GoogleLogo, Icon, IconName, Screen, Text } from '../components';
 import { useAuth } from '../auth/AuthContext';
 import { AuthStackParamList } from '../navigation/types';
 
 type Props = NativeStackScreenProps<AuthStackParamList, 'Login'>;
 
 const FEATURES: { icon: IconName; label: string; tint: string; bg: string }[] = [
-  { icon: 'menu_book', label: 'Books', tint: '#2563EB', bg: '#EFF6FF' },
+  { icon: 'menu_book', label: 'Books', tint: '#0D9488', bg: '#F0FDFA' },
   { icon: 'school', label: 'Tutors', tint: '#10B981', bg: '#ECFDF5' },
-  { icon: 'storefront', label: 'Stores', tint: '#F97316', bg: '#FFF7ED' },
+  { icon: 'storefront', label: 'Stores', tint: '#F59E0B', bg: '#FFFBEB' },
 ];
 
 export function LoginScreen({ navigation }: Props) {
@@ -125,7 +125,7 @@ export function LoginScreen({ navigation }: Props) {
 
           <Button
             label="Continue with Google"
-            icon="google"
+            leading={<GoogleLogo size={20} />}
             variant="ghost"
             onPress={onGoogle}
             loading={loading === 'google'}

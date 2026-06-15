@@ -12,6 +12,8 @@ export interface ButtonProps {
   onPress?: () => void;
   variant?: Variant;
   icon?: IconName;
+  /** Custom leading element (e.g. a multi-colour logo) shown instead of `icon`. */
+  leading?: React.ReactNode;
   iconRight?: IconName;
   disabled?: boolean;
   loading?: boolean;
@@ -38,6 +40,7 @@ export function Button({
   onPress,
   variant = 'primary',
   icon,
+  leading,
   iconRight,
   disabled,
   loading,
@@ -60,7 +63,7 @@ export function Button({
         <ActivityIndicator color={colors[fg]} />
       ) : (
         <View className="flex-row items-center gap-2">
-          {icon ? <Icon name={icon} size={20} tint={colors[fg]} /> : null}
+          {leading ?? (icon ? <Icon name={icon} size={20} tint={colors[fg]} /> : null)}
           <Text variant="bodyLg" weight="700" color={fg}>
             {label}
           </Text>

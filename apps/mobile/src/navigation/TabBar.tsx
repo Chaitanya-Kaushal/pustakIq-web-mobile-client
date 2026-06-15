@@ -96,6 +96,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   pillActive: {
-    backgroundColor: '#EFF6FF',
+    backgroundColor: '#F0FDFA',
   },
 });
