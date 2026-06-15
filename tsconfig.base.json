@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["ESNext"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "declaration": true,
+    "paths": {
+      "@pustakiq/shared": ["./packages/shared/src/index.ts"],
+      "@pustakiq/shared/*": ["./packages/shared/src/*"],
+      "@pustakiq/theme": ["./packages/theme/src/index.ts"],
+      "@pustakiq/theme/*": ["./packages/theme/src/*"]
+    }
+  }
+}

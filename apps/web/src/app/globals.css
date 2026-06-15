@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+/*
+ * PustakIQ web design tokens.
+ * Source of truth: stitch_pustakiq_education_platform_ui/pustakiq/DESIGN.md
+ * "Premium Utility" — crisp white surfaces, #2563EB primary, slate text.
+ * Light theme only.
+ */
+@theme {
+  /* Brand */
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-primary-soft: #eff6ff;
+  --color-secondary: #059669;
+  --color-secondary-soft: #ecfdf5;
+  --color-accent: #ea580c;
+  --color-accent-soft: #fff7ed;
+  --color-whatsapp: #25d366;
+
+  /* Surfaces */
+  --color-surface: #ffffff;
+  --color-surface-muted: #f8fafc;
+  --color-surface-soft: #f1f5f9;
+
+  /* Text */
+  --color-ink: #0f172a;
+  --color-ink-soft: #475569;
+  --color-ink-faint: #94a3b8;
+
+  /* Lines */
+  --color-line: #e5e7eb;
+
+  /* Status */
+  --color-warn: #b45309;
+  --color-warn-soft: #fef9c3;
+  --color-danger: #dc2626;
+  --color-danger-soft: #fee2e2;
+
+  /* Type */
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+
+  /* Radii */
+  --radius-card: 1rem;
+  --radius-btn: 0.75rem;
+
+  /* Container */
+  --breakpoint-3xl: 96rem;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #0f172a;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background-color: var(--color-primary);
+    color: #ffffff;
+  }
+}

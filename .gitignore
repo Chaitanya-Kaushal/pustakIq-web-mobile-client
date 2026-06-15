@@ -1,0 +1,58 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Turborepo
+.turbo
+
+# Build outputs
+dist/
+lib/
+build/
+*.tsbuildinfo
+
+# React Native / Metro
+.expo/
+.metro-health-check*
+**/.cxx/
+
+# Android
+*.keystore
+!debug.keystore
+apps/mobile/android/.gradle/
+apps/mobile/android/app/build/
+apps/mobile/android/build/
+apps/mobile/android/local.properties
+apps/mobile/android/.idea/
+apps/mobile/android/captures/
+*.iml
+
+# iOS / CocoaPods
+apps/mobile/ios/Pods/
+apps/mobile/ios/build/
+apps/mobile/ios/*.xcworkspace/xcuserdata/
+apps/mobile/ios/*.xcodeproj/xcuserdata/
+apps/mobile/ios/.xcode.env.local
+
+# Logs
+*.log
+npm-debug.*
+yarn-error.*
+
+# Env
+.env
+.env.local
+*.local
+
+# OS
+.DS_Store
+*.pem
+
+# Editor
+.vscode/
+.idea/
+
+# Internal docs / design assets — kept local, not published
+prd.md
+stitch_pustakiq_education_platform_ui/

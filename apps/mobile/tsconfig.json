@@ -1,0 +1,35 @@
+{
+  "extends": "@react-native/typescript-config",
+  "compilerOptions": {
+    "types": [
+      "jest"
+    ],
+    "paths": {
+      "@pustakiq/shared": [
+        "../../packages/shared/src/index.ts"
+      ],
+      "@pustakiq/shared/*": [
+        "../../packages/shared/src/*"
+      ],
+      "@pustakiq/theme": [
+        "../../packages/theme/src/index.ts"
+      ],
+      "@pustakiq/theme/*": [
+        "../../packages/theme/src/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*",
+    "App.tsx",
+    "index.js",
+    "*.ts",
+    "*.tsx",
+    "nativewind-env.d.ts"
+  ],
+  "exclude": [
+    "**/node_modules",
+    "**/Pods",
+    "**/lib"
+  ]
+}
